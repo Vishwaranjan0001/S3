@@ -516,4 +516,12 @@ if __name__ == '__main__':
     print("📁 Supported file types: TXT, PDF, PNG, JPG, JPEG, GIF, BMP, SVG, WEBP")
     print("📏 Max file size: 50MB")
 
-    app.run(debug=True, port=5000)
+if __name__ == '__main__':
+    with app.app_context():
+        db.create_all()
+        print("✅ Database ready!")
+        print(f"✅ Storage folder created: {STORAGE_PATH}")
+
+    port = int(os.environ.get("PORT", 5000))
+    print(f"🚀 Starting Simple Storage Service with File Upload on port {port}...")
+    app.run(host="0.0.0.0", port=port)
